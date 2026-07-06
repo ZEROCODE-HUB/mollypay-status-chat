@@ -30,7 +30,7 @@ export default async function handler(req, res) {
         "Authorization": "Bearer " + process.env.DEEPSEEK_API_KEY,
       },
       body: JSON.stringify({
-        model: "deepseek-v4-flash",
+        model: "deepseek-chat",
         max_tokens: 1000,
         messages: deepseekMessages,
       }),
