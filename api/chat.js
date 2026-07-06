@@ -38,6 +38,12 @@ export default async function handler(req, res) {
 
     const data = await deepseekResponse.json();
 
+    if (!deepseekResponse.ok) {
+      return res.status(deepseekResponse.status).json({
+        error: "DeepSeek respondio: " + JSON.stringify(data)
+      });
+    }
+
     let translated;
     if (data.choices && data.choices[0] && data.choices[0].message) {
       translated = {
