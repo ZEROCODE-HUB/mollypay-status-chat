@@ -250,7 +250,11 @@ async function sendMessage(text){
         messages: messages.map(function(m){ return {role: m.role === 'client' ? 'user' : 'assistant', content: m.text}; })
       })
     });
-    if(!response.ok){ throw new Error("El proxy respondio con error " + response.status); }
+    if(!response.ok){
+      var errBody = "error " + response.status;
+      try{ var errJson = await response.json(); errBody += ": " + JSON.stringify(errJson); }catch(e){}
+      throw new Error(errBody);
+    }
     var data = await response.json();
     var textBlock = null;
     if(data.content){
